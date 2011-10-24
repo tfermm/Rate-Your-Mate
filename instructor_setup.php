@@ -6,7 +6,7 @@ error_reporting(-1);
 	<title> Instructor Setup </title>
 	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
-	<script src="js/behavior.js"> </script>
+	<script src="js/instructor_setup.js"> </script>
 
 </head>
 <body>
@@ -23,27 +23,38 @@ error_reporting(-1);
 		      action="instruct_submit.asp" method="post"  >
 			Project I.D.: <input type="text" name="projectID" /> 	<br />
 			Number of Groups: 
-			<?php // Have a spinner that will increment, passes the max/min value in with it, so can resuse the JS for mulitple spinners ?>
+			
 			<table cellpadding="0" cellspacing="0" border="0">
 				<tr>
-					<td rowspan="2"><input  type="text" id="groupText" name="numGroups" value="1" <?php //style="width:50px;height:23px;font-weight:bold;" ?> /></td>
-					<td><input type="button" id="btnAdd" value=" /\ " style="font-size:7px;margin:0;padding:0;width:20px;height:13px;" ></td>
+					<td rowspan="2"><input  type="text" id="groupText" name="numGroups" value="1"  /></td>
+					<td><input type="button" id="btnAdd" value=" /\ " 
+						style="font-size:7px;margin:0;padding:0;width:20px;height:13px;"/ ></td>
 				</tr>
 				<tr>
-					<td><input type="button" id="btnDel" value=" \/ " style="font-size:7px;margin:0;padding:0;width:20px;height:12px;" /></td>
+					<td><input type="button" id="btnDel" value=" \/ " 
+						style="font-size:7px;margin:0;padding:0;width:20px;height:12px;" /></td>
 				</tr>
 			</table>
 
-			<form id="createGroups">
-				<div id="input1" class="clonedInput">
-					Group: <input type="text" name="group1" id="group1" />
-				</div>
-				
-				<div>
+			<div id="rosterSource" >
+				<select name="roster" multiple="multiple">
+				<?php
+				foreach($_SESSION['roster'] as &$student ) {
+					echo "<option value=".$student['screenname']." id=".$student['id'].">";
+					echo $student['name']."</option>";
+				}
+				?>
+				</select>
+			</div>
 
-				</div>
-			</form>
-			
+			<div id="input1" class="clonedInput">
+				
+				<select name="group1" size="4" id="group1" multiple="multiple">
+				</select>
+				
+				<?php //Group: <input type="text" name="group1" id="group1" /> ?>
+			</div>
+						
 			<br />
 			<p>Who creates the Contract? </p>
 			<br />
