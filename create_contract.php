@@ -1,5 +1,4 @@
 
-
 <html>
 
 
@@ -7,32 +6,12 @@
 
 <head>
 
-
-
-
 <title>Rate Your Mate</title>
-
-
-
 
 </head>
 
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-	
-
-
 
 <h2>Create Contract</h2>
 	
@@ -42,8 +21,6 @@
 <?php include ("includes/menu.php"); ?>
 
 </div>
-
-
 
 
 <div id="content">
