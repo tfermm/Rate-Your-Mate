@@ -5,37 +5,14 @@
 
 <head>
 
-
-
-
 <title>Rate Your Mate</title>
-
-
 
 
 </head>
 
-
-
-
-
-
-
-
-
-
-
-
-
 <h2>Instructor Evaluation</h2>
 
-
-
 </div>
-
-
-
-
 
 <div id="menu">
 
@@ -43,13 +20,7 @@
 <?php include ("includes/menu.php"); ?>
 
 
-
 </div>
-
-
-
-
-
 
 
 <div id="content">
@@ -67,7 +38,6 @@
 </br>
 
 </p>
-
 
 
 
