@@ -34,6 +34,11 @@
 
 <br/>
 
+<p>Group Goals<p/>
+
+<textarea wrap="virutal" name="comments" rows="5" cols="50"></textarea>
+
+
 <p> How many behaviors will your contract contain? </p>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
