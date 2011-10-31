@@ -4,6 +4,6 @@
 	<li> <a href="instructor_setup.php"> Instructor Setup </a> 	</li>
 	<li> <a href="student_input.php"> Student Input </a> 		</li>
 	<li> <a href="evaluatee_student.php"> Student Evaluatee </a>	</li>
-	<li> <a href="evaluatee_instructor.php" > Instruc Evaluation </a>	</li>
+	<li> <a href="evaluatee_instructor.php" > Instructor Evaluation </a>	</li>
 </ul>
 
