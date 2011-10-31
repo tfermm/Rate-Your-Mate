@@ -149,8 +149,20 @@ Number of Behaviors:
 
 Behavior: <input type="text" name="behavior" /> <br />
 
+<br/>
+
+<p>Additional Comments<p/>
+
+<textarea wrap="virutal" name="additional" rows="5" cols="50"></textarea>
+
+<br/>
+
+
 <input type="submit" value='Submit Contract'/>
 
+<input type="submit" value='Accept'/>
+
+<input type="submit" value='Cancel'/>
 </div>
 
 </html>
