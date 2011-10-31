@@ -87,26 +87,22 @@
 
 <textarea wrap="virutal" name="comments" rows="5" cols="50">Student One</textarea>
 
-<input type="submit" value="Submit Comments">
 
-</form>
 
 
 
 </br>
 
 
-<form action="process.php" method="POST"> 
+
 
 <textarea wrap="virutal" name="comments" rows="5" cols="50">Student Two</textarea>
 
-<input type="submit" value="Submit Comments">
 
-</form>
+
 
 </br>
 
-<form action="process.php" method="POST"> 
 
 <textarea wrap="virutal" name="comments" rows="5" cols="50">Student Three</textarea>
 
@@ -127,9 +123,6 @@
 
 <textarea wrap="virutal" name="comments" rows="5" cols="50">Student one</textarea>
 
-<input type="submit" value="Submit Comments">
-
-</form>
 
 
 
@@ -137,13 +130,10 @@
 
 </br>
 
-<form action="process.php" method="POST"> 
+
 
 <textarea wrap="virutal" name="comments" rows="5" cols="50">Student Two</textarea>
 
-<input type="submit" value="Submit Comments">
-
-</form>
 
 
 
@@ -151,7 +141,7 @@
 
 </br>
 
-<form action="process.php" method="POST"> 
+ 
 
 <textarea wrap="virutal" name="comments" rows="5" cols="50">Student Three</textarea>
 
