@@ -1,89 +1,73 @@
-        $(document).ready(function() {
-            $('#btnAdd').click(function() {
-                var num = $('.clonedInput').length; 	// how many "duplicatable" input fields we currently have
-                var newNum  = new Number(num + 1);      // the numeric ID of the new input field being added
-		$('#groupText').attr('value', newNum);
+$(document).ready(function() {       
+    $('#groupText').click(function() {
+        var num = $( '.group' ).length;
+        var newNum = new Number( $('#groupText').attr('value') );
+        newNum = Math.round(newNum);    // If a non-whole number was entered, round       
+  
+		// If adding to the form
+        if ( num < newNum ) {
+            var i = num + 1;
+            // If the new number is greater, add form elements
+            while (i <= newNum ){                   
+		var insertHtml = '<h6><a href="#"> Group ' + newNum + '</a> </h3>' +
+			'<div id="groups-'+newNum+'" class="group">' +
+			'<ul id="g' + newNum + '" class="dragging dropping">' + 
+                                '<li class="placeholder"> Drag names here </li>' +
+                         '</ul>'+
+	                 '</div>';
 
-                // create the new element via clone(), and manipulate it's ID using newNum value
-                var newElem = $('#input' + num).clone().attr('id', 'input' + newNum);
- 
-                // manipulate the name/id values of the input inside the new element
-                newElem.children(':first').attr('id', 'name' + newNum).attr('name', 'name' + newNum);
- 
-                // insert the new element after the last "duplicatable" input field
-                $('#input' + num).after(newElem);
- 
-                // enable the "remove" button
-                $('#btnDel').attr('disabled','');
- 
-                // business rule: you can only add 5 names
-                if (newNum == 20 )
-                    $('#btnAdd').attr('disabled','disabled');
-            });
- 
-            $('#btnDel').click(function() {
-                var num = $('.clonedInput').length; // how many "duplicatable" input fields we currently have
-                $('#input' + num).remove();     // remove the last element
-		$('#groupText').attr('value', num-1);
- 
-                // enable the "add" button
-                $('#btnAdd').attr('disabled','');
- 
-                // if only one element remains, disable the "remove" button
-                if (num-1 == 1)
-                    $('#btnDel').attr('disabled','disabled');
-            });
-			
-	$('#groupText').change(function() {
-		var num = $( '.clonedInput' ).length;
-		var newNum = new Number( $('#groupText').attr('value') );
-		newNum = Math.round(newNum);	// If a non-whole number was entered, round
-		//  Make sure it is within the range
-		if ( newNum < 1 ) {
-			newNum = 1;
-		}
-		else if ( newNum > 20 ) {
-			newNum = 20;
-		}
-	
-		// Set the form to the new value
-		$('#groupText').attr('value', newNum);
-		if ( num < newNum ) {
-			var i = num + 1;
-			// If the new number is greater, add form elements
-			while (i <= newNum ){					
-				// create the new element via clone(), and manipulate it's ID using newNum value
-				var newElem = $('#input' + num).clone().attr('id', 'input' + i);
-		
-				// manipulate the name/id values of the input inside the new element
-				newElem.children(':first').attr('id', 'name' + i).attr('name', 'name' + i);
-		 
-				// insert the new element after the last "duplicatable" input field
-				$('#input' + (i-1)).after(newElem);
-				i++;
-			}
-		}
+		// Add the new tab
+		$('.groups').append(insertHtml);
+		// Make the new table droppable
+		makeDrop('#groups-'+newNum);
+		// Recreate the accordion with the new group
+		$('#groups').accordion('destroy').accordion();
+               i++;
+            }
+        }
 		else if ( num > newNum ) {
-			var i = num;
-			while ( i > newNum ) { 
-				$('#input' + i).remove();
-				// enable the "add" button
-				$('#btnAdd').attr('disabled','');
-				// if only one element remains, disable the "remove" button
-				if (newNum == 1)
-					$('#btnDel').attr('disabled','disabled');
-					i--;
-				}
-			}
-		});        
-        });
+			var num = $( '.group' ).length;
+			// add the stuff from the old list to the roster
+			$('#g' + num + ' li' ).appendTo('#rosterList');
+			$('#groups-'+num).remove();
+			$('#groups h6:last-child').remove();
+			$('#groups').accordion('destroy').accordion();
+		}
+   });        
+});   
 function detach(){
-	lay  = document.getElementById('rosterSource');
-	left = getXCoord(lay);
-	top  = getYCoord(lay);
-	lay.style.position = 'absolute';
-	lay.style.top      = top;
-	lay.style.left     = left;
-	getFloatLayer('rosterSource').initialize();
-	alignFloatLayers();
-}		
+    lay  = document.getElementById('rosterSource');
+    left = getXCoord(lay);
+    top  = getYCoord(lay);
+    lay.style.position = 'absolute';
+    lay.style.top      = top;
+    lay.style.left     = left;
+    getFloatLayer('rosterSource').initialize();
+    alignFloatLayers();
+}
+
+function makeDrop (id) {
+$(id + " ul").droppable({
+	activeClass: "ui-state-highlight",
+	hoverClass: "ui-state-hover",
+	accept: ":not(.ui-sortable-helper)",
+	drop: function(event,ui){
+		// If the place holder is there, remove it	
+		$(this).find( ".placeholder" ).remove();
+		
+		// Remove the element from everywhere else	
+		var element = document.getElementById(ui.draggable.attr('id'))
+		if (element != null)
+			element.parentNode.removeChild(element);	
+		// Add it in			
+		$('<li id="' + ui.draggable.attr('id') +
+			'" class="ui-draggable">' + ui.draggable.html()+"</li>").appendTo(this);
+		// Make the new list object draggable
+		$('#' + this.id + ' li').draggable({
+			appendTo: "body",
+			helper: "clone"
+		});
+					
+	}
+});
+}
