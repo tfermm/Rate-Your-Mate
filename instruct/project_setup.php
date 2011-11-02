@@ -1,4 +1,4 @@
-<?php include ("includes/check_authorization.php"); 
+<?php include ("../includes/check_authorization.php"); 
 error_reporting(-1);
 ?>
 <html>
@@ -7,8 +7,8 @@ error_reporting(-1);
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js'></script>
     <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js'></script>
-    <script src="js/instructor_setup.js"> 	</script>
-    <script src="js/float_layers.js"> 		</script>  
+    <script src="../js/instructor_setup.js"> 	</script>
+    <script src="../js/float_layers.js"> 		</script>  
    
 </head>
 <body> 
@@ -17,7 +17,7 @@ error_reporting(-1);
     </div>
 
    <div id="menu">
-      <?php include ("includes/menu.php"); ?>
+      <?php include ("../includes/menu.php"); ?>
    </div>
 
    <div id="content">
