@@ -1,39 +1,93 @@
-$(document).ready(function() {       
+$(document).ready(function() {
+
+	$('#groupText').keyup(function() {
+		var num = $( '.group' ).length;
+		var max = $( '#groupText' ).attr( 'max' );
+		if ( num > max ) 
+			$( '#groupText' ).attr( 'value', max )	
+
+		$( '#groupText' ).click();
+		
+	});
+
+
     $('#groupText').click(function() {
         var num = $( '.group' ).length;
         var newNum = new Number( $('#groupText').attr('value') );
-        newNum = Math.round(newNum);    // If a non-whole number was entered, round       
-  
-		// If adding to the form
+        newNum = Math.round(newNum);    // If a non-whole number was entered, round
+ 
+	// If adding to the form
         if ( num < newNum ) {
-            var i = num + 1;
+			
             // If the new number is greater, add form elements
-            while (i <= newNum ){                   
-		var insertHtml = '<h6><a href="#"> Group ' + newNum + '</a> </h3>' +
-			'<div id="groups-'+newNum+'" class="group">' +
-			'<ul id="g' + newNum + '" class="dragging dropping">' + 
-                                '<li class="placeholder"> Drag names here </li>' +
-                         '</ul>'+
-	                 '</div>';
+            for ( var i = num + 1; i <= newNum; i++ ) {   
+			var insertHtml = '<h6><a href="#"> Group ' + i + '</a> </h3>' +
+							 '<div id="groups-' + i + '" class="group">' +
+								'<ul id="g' + i + '" class="dragging dropping">' + 
+									'<li class="placeholder"> Drag names here </li>' +
+								'</ul>'+
+							 '</div>';
 
-		// Add the new tab
-		$('.groups').append(insertHtml);
-		// Make the new table droppable
-		makeDrop('#groups-'+newNum);
-		// Recreate the accordion with the new group
-		$('#groups').accordion('destroy').accordion();
-               i++;
-            }
+			// Add the new tab
+			$('.groups').append(insertHtml);
+			// Make the new table droppable
+			makeDrop('#groups-'+i);
+			// Recreate the accordion with the new group
+			
+			}
+			$('#groups').accordion('destroy').accordion(); 
         }
 		else if ( num > newNum ) {
-			var num = $( '.group' ).length;
-			// add the stuff from the old list to the roster
-			$('#g' + num + ' li' ).appendTo('#rosterList');
-			$('#groups-'+num).remove();
-			$('#groups h6:last-child').remove();
+						
+			for ( var i = num; i > newNum; i-- ) {
+				// add the stuff from the old list to the roster
+				$('#g' + i + ' li' ).appendTo('#rosterList');
+				$('#groups-' + i).remove();
+				$('#groups h6:last-child').remove();
+			}
+			// Remove any place holders that may have been put on the roster
+			$('#rosterList .placeholder').remove();
 			$('#groups').accordion('destroy').accordion();
 		}
-   });        
+   });
+
+   $('#numEval').keyup(function() {
+   	var num = $( '.submitDate' ).length;
+        var max = $( '#numEval' ).attr( 'max' );
+        if ( num > max )
+        	$( '#numEval' ).attr( 'value', max )
+                $( '#numEval' ).click();
+   });
+
+
+    $( '#numEval' ).click( function() {
+	var num = $( '.submitDate' ).length;
+	var newNum = new Number( $( '#numEval' ).attr( 'value' ) );
+	newNum = Math.round( newNum );
+
+	if ( num < newNum ) {
+		for ( var i = num + 1; i <= newNum; i++ ) {
+			var insertHtml = '<div class="submitDate">' +
+                        			'<h4> Evaluation ' + i + '</h4>' +
+                        			'Evaluatior: <br /> Available From' +
+                        			'<input class="avail" />' +
+                        			'Due Date' +
+                        			'<input class="due" />' +
+                        			'<br /> Evaluatee: <br />Available From' +
+                        			'<input class="avail" />' +
+                        			'Due Date' +
+                        			'<input class="due" />'
+                				'</div>';
+			$( '#submitDate' ).append( insertHtml );
+		}
+	}
+	else if ( num > newNum ) {
+		for ( var i = num; i > newNum; i-- ) {
+			$('.submitDate:last').remove();
+		}
+	}
+   });
+     
 });   
 function detach(){
     lay  = document.getElementById('rosterSource');
