@@ -9,7 +9,8 @@ error_reporting(-1);
     <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js'></script>
     <script src="../js/instructor_setup.js"> 	</script>
     <script src="../js/float_layers.js"> 		</script>  
-   
+    <link rel="stylesheet" type="text/css" href="../css/dateStyle.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
 </head>
 <body> 
     <div id="header">
@@ -37,10 +38,10 @@ error_reporting(-1);
 	    ?>      
             </ul>
         </div>
-	<div id='groupsContainer'>
+	
 		
 		
-	<div id='groups' class='groups' style="font-size:85.5%; width:50%">
+	<div id='groups' class='groups' >
 		<h6><a href="#"> Group 1 </a> </h3>
 		<div id="groups-1" class="dropping group">
 			<ul class="dragging dropping" id="g1">
@@ -55,10 +56,13 @@ error_reporting(-1);
 		</div>
 	</div>
 		
-	<div id="contractCreator" class="instruct_rb">
 
-	<p>Who creates the Contract? Number of points to be allocated: </p>
+
+	<p> Number of points to be allocated </p>
 	<input id="pointAlloc" type="number" value="1" size="4" min="1" max="100" />
+	
+	<p> Number of Evaluations </p>
+	<input id="numEval" type="number" value="2" min="1" max="100" />
 	<p> Evaluation Dates </p>
 	<div id="submitDate">
 		<div class="submitDate">
@@ -96,8 +100,8 @@ error_reporting(-1);
 <script type="text/javascript">
 	$(function() {
 		$( "#groups" ).accordion();
-		$( ".avail" ).datepicker();
-		$( ".due" ).datepicker();
+		$( ".avail" ).datepicker({ minDate: 0, maxDate: "+9M"});
+		$( ".due" ).datepicker({ minDate: 0, maxDate: "+9M"});
 	});
 	// Make all student names draggable
 	 $(".dragging li").draggable({

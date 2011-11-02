@@ -79,6 +79,10 @@ $(document).ready(function() {
                         			'<input class="due" />'
                 				'</div>';
 			$( '#submitDate' ).append( insertHtml );
+
+	                $( ".avail" ).datepicker({ minDate: 0, maxDate: "+9M"});
+        	        $( ".due" ).datepicker({ minDate: 0, maxDate: "+9M"});
+
 		}
 	}
 	else if ( num > newNum ) {
