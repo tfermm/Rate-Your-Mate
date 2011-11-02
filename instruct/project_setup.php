@@ -1,4 +1,4 @@
-<?php include ("includes/check_authorization.php"); 
+<?php include ("../includes/check_authorization.php"); 
 error_reporting(-1);
 ?>
 <html>
@@ -7,9 +7,10 @@ error_reporting(-1);
     <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js'></script>
     <script src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js'></script>
-    <script src="js/instructor_setup.js"> 	</script>
-    <script src="js/float_layers.js"> 		</script>  
-   
+    <script src="../js/instructor_setup.js"> 	</script>
+    <script src="../js/float_layers.js"> 		</script>  
+    <link rel="stylesheet" type="text/css" href="../css/dateStyle.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
 </head>
 <body> 
     <div id="header">
@@ -17,7 +18,7 @@ error_reporting(-1);
     </div>
 
    <div id="menu">
-      <?php include ("includes/menu.php"); ?>
+      <?php include ("../includes/menu.php"); ?>
    </div>
 
    <div id="content">
@@ -27,7 +28,7 @@ error_reporting(-1);
          Number of Groups: 
         
          
-        <input  type="number" id="groupText" name="numGroups" value="2" size="4" min="0" />
+        <input  type="number" id="groupText" name="numGroups" value="2" size="4" min="0" max="25"/>
          
         <div id="rosterSource" class="dropping" >
             <ul name="roster" id="rosterList" class="dragging dropping">
@@ -37,10 +38,10 @@ error_reporting(-1);
 	    ?>      
             </ul>
         </div>
-	<div id='groupsContainer'>
+	
 		
 		
-	<div id='groups' class='groups' style="font-size:85.5%; width:50%">
+	<div id='groups' class='groups' >
 		<h6><a href="#"> Group 1 </a> </h3>
 		<div id="groups-1" class="dropping group">
 			<ul class="dragging dropping" id="g1">
@@ -55,22 +56,43 @@ error_reporting(-1);
 		</div>
 	</div>
 		
-	<div id="contractCreator" class="instruct_rb">
-		<p>Who creates the Contract? </p>
-		<input type="radio" name="creator" value="student" /> Student <br />
-		<input type="radio" name="creator" value="faculty" /> Faculty <br />
-	</div>
-		
-        <div id="submitType">
-			<p>Do you want to submit a grade for: </p>
-			<input type="radio" name="gradeSubmit" value="1" /> Evaluatee Only   <br />
-			<input type="radio" name="gradeSubmit" value="2" /> Evaluator Only   <br />
-			<input type="radio" name="gradeSubmit" value="3" /> Both      		  <br />
-			<input type="radio" name="gradeSubmit" value="4" /> None             <br />
+
+
+	<p> Number of points to be allocated </p>
+	<input id="pointAlloc" type="number" value="1" size="4" min="1" max="100" />
+	
+	<p> Number of Evaluations </p>
+	<input id="numEval" type="number" value="2" min="1" max="100" />
+	<p> Evaluation Dates </p>
+	<div id="submitDate">
+		<div class="submitDate">
+			<h4> Evaluation 1 </h4>
+			Evaluatior: <br />
+			 Available From
+			<input class="avail" /> 
+			Due Date
+			<input class="due" />
+			<br /> Evaluatee: <br />Available From 
+			<input class="avail" />
+			Due Date
+			<input class="due" />
 		</div>
-         <input id="numEval" name="numeval" type="number" value="1" size="4" 
-		title="Number of Evaluations"/>   <br />
-         <input type="submit" value="Submit" />
+		<div class='submitDate'>
+                        <h4> Evaluation 2 </h4>
+                        Evaluatior: <br />
+                         Available From
+                        <input class="avail" />
+                        Due Date
+                        <input class="due" />
+                        <br /> Evaluatee: <br />Available From
+                        <input class="avail" />
+                        Due Date
+                        <input class="due" />
+
+		</div>
+	</div>
+	<input type="submit" value="Submit" />
+
       </form>
    </div>
 </body>
@@ -78,6 +100,8 @@ error_reporting(-1);
 <script type="text/javascript">
 	$(function() {
 		$( "#groups" ).accordion();
+		$( ".avail" ).datepicker({ minDate: 0, maxDate: "+9M"});
+		$( ".due" ).datepicker({ minDate: 0, maxDate: "+9M"});
 	});
 	// Make all student names draggable
 	 $(".dragging li").draggable({
@@ -105,6 +129,8 @@ error_reporting(-1);
 				appendTo: "body",
 				helper: "clone"
 			});
+
+			// If any ul is empty, put a place holder in it
 			$("ul").each(
 				function() {
 					var elem = $(this);

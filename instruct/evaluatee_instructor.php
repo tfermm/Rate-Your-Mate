@@ -5,7 +5,7 @@
 
 <head>
 
-<title>Rate Your Mate</title>
+	<title>Rate Your Mate</title>
 
 
 </head>
@@ -17,7 +17,7 @@
 <div id="menu">
 
 
-<?php include ("includes/menu.php"); ?>
+<?php include ("../includes/menu.php"); ?>
 
 
 </div>

@@ -42,7 +42,7 @@
 <div id="menu">
 
 
-<?php include ("includes/menu.php"); ?>
+<?php include ("../includes/menu.php"); ?>
 
 
 
