@@ -32,6 +32,57 @@ function sliderSynch (sliderNumb, ui)
   //console.log("previousSliderValue " + previousSliderValue);
 }
 
+function correctValues()
+{
+  var currentTotal = getSliderTotal();
+  var difference = currentTotal - maxPoints;
+  console.log (difference);
+  var k = 0;
+  if (currentTotal != maxPoints)
+  {
+    //console.log("in the first if");
+    //console.log("currentTotal: " + currentTotal + " maxPoints: " + maxPoints);
+    var lowNum = 0;
+    var highNum = 999999;
+    if (currentTotal > maxPoints)
+    {
+      console.log("in the too many points if");
+      $('.sliders').each(function(i) {
+         if (pos[i] > lowNum)
+         {
+            lowNum = i;
+         }
+      });
+      //console.log("slider that is too high: " + lowNum);
+      console.log("k is: " +k);
+      k++;
+      pos[lowNum] = pos[lowNum] - difference;
+      $("#slider" + lowNum).slider( "value", (pos[lowNum] - difference));
+     // pc.setValues(pos);
+      
+    }
+    if (currentTotal < maxPoints)
+    {
+      console.log("in the too few points if");
+      $('.sliders').each(function(i) {
+         if (pos[i] < highNum)
+         {
+            highNum = i;
+         }
+      });
+      //console.log("slider that is too low: " + highNum);
+      pos[highNum] = pos[highNum] - difference;
+      $("#slider" +highNum).slider( "value", (pos[highNum] - difference));
+     // pc.setValues(pos);
+    }  
+  }
+  else
+  {
+    //console.log("the value is correct!");
+  }
+  
+}
+
 function getSliderTotal() {
   var totalSum = 0;
 	$('.sliders').each(function(index) {
@@ -69,6 +120,10 @@ function createSliders(num_groups, max_num) {
   $('.sliders').each(function(i) {
     $("#slider" +i).slider({
       value: pos[i],
+      stop: function (e, ui){
+        correctValues();
+        pc.setValues(pos);
+      },
       slide: function (e, ui){
 
         // clone the pos array so that we have it's original values available
