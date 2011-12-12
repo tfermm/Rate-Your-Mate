@@ -1,9 +1,7 @@
 <?php
 	session_start();
-	$_SESSION['username'] = 'admin';
-	$_SESSION['groupID'] = "1";
-	$maxPoints = 21;
-	$groupSize = 0;
+	//$_SESSION['username'] = 'admin';
+	//$_SESSION['groupID'] = "1";
 	$username = "jadennett";
 	$password = "hensvolk";
 	$hostname = "turing"; 
@@ -19,28 +17,24 @@
 		$groupSize++;
 	}
 	$groupSize -= 1;
-	//print_r ($row);
-	//$groupSize = count($row['groupID']);
-	echo $groupSize;
-	//$result2 = mysql_query("SELECT DISTINCT b.GrpID as groupID, b.PrjIP as PrjIDb, a.TotalPoints as totalPoints, a.PrjID as PrjIDa
-							//FROM Project a, Groups b
-							//WHERE b.GrpID = '{$_SESSION['groupID']}' AND PrjIDa = PrjIDb");
-	//$row2 = mysql_fetch_assoc($result2);	
-	//$maxPoints = $row2['totalPoints'];
 	
-	
-	//$groupSize = 5;
+	$dbhandle = mysql_connect($hostname, $username, $password) or die("Unable to connect to MySQL");
+	$selected = mysql_select_db("wp1",$dbhandle) or die("Could not select examples");
+	$result = mysql_query("SELECT b.GrpID as groupID, b.PrjID as PrjIDb, a.TotalPoints as totalPoints, a.PrjID as PrjIDa
+							FROM Project a, Groups b
+							WHERE b.GrpID = '{$_SESSION['groupID']}' AND a.PrjID = b.PrjID");
+
+	$row = mysql_fetch_assoc($result);	
+	$maxPoints = $row['totalPoints'];
 	
 	sessionRoll();
+	
 function sessionRoll()
 {
 	$username = "jadennett";
 	$password = "hensvolk";
 	$hostname = "turing"; 
-	//connection to the database
 	$dbhandle = mysql_connect($hostname, $username, $password) or die("Unable to connect to MySQL");
-	//echo "Connected to MySQL<br>";
-	//select a database to work with
 	$selected = mysql_select_db("wp1",$dbhandle) or die("Could not select examples");
 	$result = mysql_query("SELECT DISTINCT a.roleid as roleid, b.id as id, b.firstname as firstname, b.lastname as lastname 
 							FROM mdl_role_assignments a, mdl_user b 
@@ -78,6 +72,5 @@ function sessionRoll()
 	{
 		$teacher = 1;
 	}
-	session_destroy();
 	
 	
